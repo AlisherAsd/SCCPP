@@ -19,5 +19,10 @@ Simple Code CPP
 ```
 #48
 ```
+void foo(int *a) {
+    (*a)++;
+}
 
+    int a = 5;
+    foo(&a);
 ```
