@@ -96,20 +96,46 @@ void push_back(int *&arr, int &size, const int value) {
     push_back(arr, size, 10);
 
 ```
-#60
+#60/61/62
 ```
+    string s = "Hello World!"; // массив чаров
+    char s3 [] = "Hello World";
+    const char *s4 = "Hello world";
+    double a = 33.3; 
+    char s2 = (char)a; // явное преобразование
+```
+#63
+```
+int strlen(const char *str) {
+    int count = 0;
+    while (true)
+    {
+        if (str[count] == '\0') break;
+        else {
+            count++;
+        }
+    }
+    return count;
+}
+    cout << strlen(s4);
+```
+#64
+```
+    string s = "Hello ";
+    string s2 = "World";
+    string result = strcat_s(s, s2);
+    result = s + s2;
+```
+#65
+```
+string foo() {
+    return "foo(){}";
+}
 
-```
-#51
-```
-
-```
-#51
-```
-
-```
-#51
-```
+void ShowInfo(string (*foo)()) { // Указатель на функцию
+    cout << foo();
+}
+    ShowInfo(foo());
 
 ```
 #51
