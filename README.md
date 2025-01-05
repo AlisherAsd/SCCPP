@@ -138,21 +138,30 @@ void ShowInfo(string (*foo)()) { // Указатель на функцию
     ShowInfo(foo());
 
 ```
-#51
+#66
 ```
+#define PI 3.14 // макрос
+#define tab "/t"
+```
+#67
+```
+#define FOO(x, y)((x) + (y))
+FOO(3, 4);
+```
+#68
+```
+#define DEBUG
 
+#ifdef DEBUG
+    cout <<"DEBUG";
+#else
+    cout <<"NOT DEBUG";
+#endif
 ```
-#51
+#69
 ```
-
-```
-#51
-```
-
-```
-#51
-```
-
+    (5 > 2) ? (cout << "True") : (cout << "False");
+    (5 > 2) ? (cout << "True") : (5 > 3) ? (cout << "True") : (cout << "False");
 ```
 #51
 ```
