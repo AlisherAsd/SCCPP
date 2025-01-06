@@ -201,33 +201,74 @@ public:
 
 }
 ```
-#51
+#81
 ```
+// this это константный указатель на адрес памяти объекта
+this->x = x;
+```
+#82
+```
+// конструктор копирования
+class Point {
+    Point(const Point &point) { // по ссылке мы получаем доступ к объекту 
+        point.x = x;
+        point.y = y;
+    }
+}
+```
+#83
+```
+// перегрузка опереторов
+// если мы производим действия над самим объектом, нужно иползовать MyClass & operator P() { return *this; }
+// если использовать = по дефолту, 2 объекта будут ссылаться на один адрес, то влечет за собой ошибки при  delete
+Point& operator = (const Point &point) {
+    if (this->data != nullptr) { // очищаем память
+        delete data;
+    }
+    this->data = point.data; // присваиваем новое значение
+    return this;
+}
+```
+#84
+```
+bool operator == (const Point &point) {
+    if (this->data == point.data) return true;
+    else return false;
+}
+bool operator != (const Point &point) {
+    if (this->data != point.data) return true;
+    else return false;
+}
 
 ```
-#51
+#85
 ```
-
+// Point res = a + b; 
+Point operator + (const Point & point) { 
+    Point tmp; // res
+    tmp.x = this->x + point.x; // this - a
+    tmp.y = this->y + point.y; // point - b
+    return tmp; // return res 
+}
 ```
-#51
+#86
 ```
-
+Point & operator ++ () { // ++point
+    this->x += 1;
+    this->y += 1;
+    return *this;
+}
+Point & operator ++ (int value) { // point++
+    this->x += 1;
+    this->y += 1;
+    return *this;
+}
 ```
-#51
+#87
 ```
-
-```
-#51
-```
-
-```
-#51
-```
-
-```
-#51
-```
-
+ int & operator [](int index) {
+    return arr[index];
+}
 ```
 #51
 ```
