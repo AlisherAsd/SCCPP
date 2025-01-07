@@ -270,19 +270,80 @@ Point & operator ++ (int value) { // point++
     return arr[index];
 }
 ```
-#51
+#88
 ```
+class Point2;
+class Point {
+    friend void foo(Point &p, Point2 &p2);
+}
+class Point2 {
+    friend void foo(Point &p, Point2 &p2);
+}
+
+void foo(Point &p, Point2 &p2) { // foo имеет доступ к обоим класса
+    p.x = 1;
+    p2.x = 1;
+}
+```
+#89
+```
+class Point2;
+class Point {
+    void getPoint2(Point2 &p2) { cout << p2.x << endl }
+}
+class Point2 {
+    friend void Point::getPoint2(Point2 &p2); // Метод из класса point имеет доступ к классу point2
+}
+```
+#90
+```
+class Point2;
+class Point {
+    void getPoint2(Point2 &p2) { cout << p2.x << endl }
+    void getPoint2_2(Point2 &p2) { cout << p2.x * 2 << endl }
+    void getPoint2_2_3(Point2 &p2) { cout << p2.x * 3 << endl }
+}
+class Point2 {
+    friend Point; // Все методы из класса Point будут иметь доступ к полям Point2
+}
 
 ```
-#51
+#92-94
 ```
+class Point {
+private:
+    int data;
+    static int count; // инициализация за классом
+    static inline int countInline = 0; // инициализация при объявлении
+public:
+    Point() {
+        data = 0;
+        count++;
+        countInline++;
+    }
+    void setData(int data) {
+        this.data = data;
+    }
+    // В статических методах нельзя работать с нестатическими полями по this
+    static int GetCount() {
+        return count;
+    }
+     static int GetCountInline() {
+        return countInline;
+    }
+    // Но можно работать с полями передоваемого объекта
+    static void setDataCount(Point &p) {
+        p.setData(count);
+    }
+}
 
-```
-#51
-```
+int Point::count = 0;
 
-```
-#51
-```
+void Main() {
+    // Обращаться к статическим поляи можно как через объект, так и через класс
+    Point a;
+    Point::getCount();
+    a.getCount();
+}
 
 ```
