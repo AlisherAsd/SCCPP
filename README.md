@@ -12,7 +12,7 @@ Simple Code CPP
     int *pa2 = &a;
     *pa = 2; // *pa / *pa2 / a = 2
 ```
-# SCCPP
+
 #47
 ```
     int size = 5;
@@ -40,6 +40,7 @@ void foo(int *a, int *b) {
     int a = 5, b = 1;
     foo(&a, &b);
 ```
+# SCCPP
 #50
 ```
     int a = 5;
