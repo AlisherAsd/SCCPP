@@ -518,3 +518,105 @@ int main() {
 }
 
 ```
+
+------
+Работа с файлами
+-----
+
+#115
+```
+#include<fstream>
+// Запись в файл
+int main() { 
+    ofstream fout;
+    fout.open("file.txt", ofstream::app); // Параметр app - append не обязателен, без него каждая запись убдет стирать прошлые данные
+    if (!fout.is_open()) cout << "Err" << endl;
+    else {
+        fout << "Hello world"; // В текущем каталоге будеи открыт файл либо создан если его нету
+    }
+    fout.close();
+    return 0; 
+}
+```
+#116
+```
+#include<fstream>
+
+using namespace std;
+// Чтение из файла
+int main() { 
+    ifstream fin;
+    fin.open("file.txt");
+    if (!fin.is_open()) cout << "Err" << endl;
+    else {
+        char ch;
+        string s;
+        // while (fin.get(ch)) // Поэлементно проходимся по файлу
+        // {
+        //     cout << ch;
+        // }
+        while (!fin.eof()) 
+        {
+            s = "";
+            // fin >> s; // Запись из файла в перменную через пробел
+            getline(fin, s); //  Запись из файла в перменную через строку
+            cout << s << endl;
+        }
+    }
+    fin.close();
+    return 0; 
+}
+```
+# 117
+```
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
+class Point
+{
+public:
+    int x;
+    int y;
+    int z;
+    Point() { x = y = z = 0;}
+    Point(int x, int y, int z) {
+        this->x = x;
+        this->y = y;
+        this->z = z;
+    }
+    void print() {
+        cout << "x: " << x << "\n" << "y: " << y << "\n" << "z: " << z << "\n";
+    }
+
+};
+
+int main() { 
+
+    Point point(1, 2, 1);
+    // Запись объекта в файл
+    ofstream fout;
+    fout.open("file.txt");
+    if (!fout.is_open()) {
+        cout << "Err" << endl;
+    } else { 
+        fout.write((char*)&point, sizeof(Point)); // запись объекта через преобразование его в чар
+    }
+    fout.close();
+
+    // Чтение объекта из файла
+    ifstream fin;
+    fin.open("file.txt");
+    if (!fin.is_open()) {
+        cout << "Err" << endl;
+    } else { 
+        Point tmp;
+        while (fin.read((char*)&tmp, sizeof(Point))) { // чтение объекта через преобразование его в чар
+            tmp.print();
+        }
+    }
+    fout.close();
+    return 0; 
+}
+```
