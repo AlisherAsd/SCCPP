@@ -526,7 +526,7 @@ int main() {
 #115
 ```
 #include<fstream>
-// Запись в файл
+// Запись в файл ofstream
 int main() { 
     ofstream fout;
     fout.open("file.txt", ofstream::app); // Параметр app - append не обязателен, без него каждая запись убдет стирать прошлые данные
@@ -543,7 +543,7 @@ int main() {
 #include<fstream>
 
 using namespace std;
-// Чтение из файла
+// Чтение из файла ifstream
 int main() { 
     ifstream fin;
     fin.open("file.txt");
@@ -558,8 +558,8 @@ int main() {
         while (!fin.eof()) 
         {
             s = "";
-            // fin >> s; // Запись из файла в перменную через пробел
-            getline(fin, s); //  Запись из файла в перменную через строку
+            // fin >> s; // Чтени из файла в перменную через пробел
+            getline(fin, s); //  Чтени из файла в перменную через строку
             cout << s << endl;
         }
     }
@@ -619,4 +619,67 @@ int main() {
     fout.close();
     return 0; 
 }
+```
+#118
+```
+int main() {
+    fstream fs; // fs  в отличии от if и of можно использовать и для того и для другого
+    fs.open("file.txt", fstream::in | fstream::out | fstream::app); // in - чтение, out - запись, app - дописывать
+    if (!fs.is_open()) {
+        cout << "Err" << endl;
+    } else {
+        // fs << "Hello world!\n"; // запись в файл
+        string s;
+        while (!fs.eof()) // пока не конец - endof
+        {
+            s = ""; 
+            fs >> s; // читаем поток в s
+            cout << s;
+        }
+        
+    }
+    fs.close();
+    return 0; 
+}
+```
+#119 
+```
+// Прегрузка ostream / istream
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
+class Point
+{
+public:
+    int x;
+    int y;
+    int z;
+    Point() { x = y = z = 0;}
+};
+
+ostream& operator<<(ostream& os, const Point &point) {
+    os << point.x << " " << point.y << " " << point.z << "\n";  
+    return os;
+}
+
+istream& operator>>(istream& is, Point &point) {
+    is >> point.x >> point.y >> point.z;  
+    return is;
+}
+
+int main() { 
+    Point p;
+    cin >> p;
+    cout << p;
+    return 0; 
+}
+```
+---
+# Обработка исключений
+---
+
+#120
+```
 ```
