@@ -1,5 +1,6 @@
 # SCCPP
-Simple Code CPP 
+### Simple Code CPP
+##### Записи при подготовке к экзамену ПМИ курса simple code по С++. 
 
 
 
