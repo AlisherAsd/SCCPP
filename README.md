@@ -347,3 +347,75 @@ void Main() {
 }
 
 ```
+#98-99
+```
+class A
+{
+public:
+    string message = "public"; // доступен всем
+private:
+    string message2 = "private"; // приватен везде кроме своега класса
+protected:
+    string message3 = "protected";  // наследуется, но приватен из вне
+}
+
+class B : public A;    // public    /   private   / protected
+class C : private A;   // private   /   private   / private
+class D : protected A; // protected /   private   / protected
+
+```
+#100
+```
+// Порядок вызов конструкторов при наследовании, перед конструктром дочернего класса вызывается контрукор базоваго класса
+// Для деструктора, соответсвенно, все наоборот
+struct A {
+    A() { cout << "Constructor A" << endl; } // Constructor A
+    ~A() { cout << "Destructor A" << endl; } // Destructor A
+};
+struct B : public A {
+    B() { cout << "Constructor B" << endl; } // Constructor A, Constructor B
+    ~B() { cout << "Destructor B" << endl; } // Destructor B, Destructor A
+};
+struct C : public B {
+    C() { cout << "Constructor C" << endl; } // Constructor A, Constructor B, Constructor C
+    ~C() { cout << "Destructor C" << endl; } // Destructor C, Destructor B, Destructor A
+};
+```
+#101
+```
+//  Абстрактный класс определяет интерфейс для переопределения производными классами.
+// virtual метод нцжен для того чтобы методы дочернего класса вызываемые по указатнлю базового корректно отрабатывали
+class Weapon
+{
+public:
+    virtual void Shoot() = 0;
+};
+class Gun : Weapon
+{
+public:
+    void Shoot() ovveride {
+        cout << "BANG" << endl;
+    }
+};
+class SubMachineGun : public Gun
+{
+public:
+    void Shoot() override { // override нужен для того чтобы компилятор контролировал, корректно ли переопределен метод
+        cout << "BANG BANG BANG" << endl;
+    }
+};
+
+int main() {
+    Gun n;
+    SubMachineGun s;
+    Weapon *pgun = &n;
+    Weapon *pgun2 = &s; 
+    pgun->Shoot(); // bang 
+    pgun2->Shoot(); // bang bang bang | если бы был не виртуальный метод, вызвался бы метод типа указателя, тоесть bang
+    return 0;
+}
+```
+#102
+```
+
+```
