@@ -1,6 +1,7 @@
 # SCCPP
 Simple Code CPP 
 --------------
+<a name="47">47</a> 
 #46
 ```
     int a = 5;
@@ -8,6 +9,7 @@ Simple Code CPP
     int *pa2 = &a;
     *pa = 2; // *pa / *pa2 / a = 2
 ```
+[47](47)
 #47
 ```
     int size = 5;
