@@ -681,6 +681,79 @@ int main() {
 # Обработка исключений
 ---
 
-#120
+#120-122
 ```
+void test(int val) {
+    if (val <= 0) throw runtime_error("Val <= 0"); // передается стринг в catch
+    cout << val;
+}
+
+void test2(int val) {
+    if (val <= 0) throw runtime_error("Val <= 0"); // передается стринг в catch потому что базовый классс ex
+    cout << val;
+}
+
+int main() { 
+    
+    try
+    {
+        test(-1);
+        test2(-1);
+    }
+    catch(const char* ex)
+    {
+        cout << ex;
+    }
+    catch(const exception& e) // приимущество такого метода в том, что он может поймать любое исключение
+    {
+        cout << e.what() << '\n';
+    }
+    catch(...) { // ловит все подряд, но что именно вызвалоошибку, непонятно
+        cout << "Что-то пошло не так.";
+    }
+    return 0; 
+}
+```
+#123
+```
+// Разработка собсвенного класса exception
+// стандртныц класс имеет только метод what
+
+class MyException : public runtime_error { // наследуемся от runtime_error чтобы иметь метод what()
+
+private:
+    int dataState;
+
+public:
+    MyException(const char* messag, int val) : runtime_error(messag) { // расщиряем конструктор нашего класса добавляя runtime_error, и наш val
+        dataState = val; // сохраняем val в dataState
+    }
+    int getDataState() const { // теперь помимо метода what () у нас есть метод getDataState()
+        return this->dataState;
+    }
+};
+
+void test(int val) {
+    if (val <= 0) throw MyException("val <= 0", val); // используем наш класс MyException 
+    cout << val;
+}
+
+
+int main() { 
+    
+    try
+    {
+        test(-1);
+    }
+    catch(const MyException& e) // наш класс имеет как метод what() так и getDataState()
+    {
+        cout << e.what()  << '\n';
+        cout << e.getDataState() << '\n';
+    }
+    catch(const exception& e) // вызываем базовый класс потому что если его поставить первым он всегда будет пойман
+    {
+        cout << e.what()  << '\n';
+    }
+    return 0; 
+}
 ```
