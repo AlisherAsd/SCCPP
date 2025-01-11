@@ -519,6 +519,49 @@ int main() {
 }
 
 ```
+#124
+```
+// enum
+
+enum PCState {
+    OOF,
+    ON,
+    SLEEP
+}
+
+class PC {
+public:
+    PCState getState() { return state; }
+    void getState(PCState pcstate) { state = pcstate; }
+private:
+    PCState state;
+};
+
+int main() { 
+    PC pc;
+    pc.getState(PCState::OOF);
+  
+    return 0; 
+}
+```
+#125
+```
+// namespace - пространство имен
+// Для того чтобы различать функции итд с одним названием
+// в std все дефолтные c++ функции
+namespace firtsNS {
+    void foo() { cout << "FirstNS"; }
+}
+namespace secondNS {
+    void foo() { cout << "secondNS"; }
+}
+
+int main() { 
+    firtsNS::foo();
+    return 0; 
+}
+```
+
 
 ------
 # Потоки ввода вывода
@@ -756,4 +799,88 @@ int main() {
     }
     return 0; 
 }
+```
+
+-------
+# Шаблоны классов ( Обощенные классы )
+------
+#127
+```
+template<typename T, typename T2>
+class TeplateClass {
+public:
+    TeplateClass(T val, T2 val2) {
+        value = val;
+        value2 = val2;
+    }
+    void DataTypeSize() {
+        cout << "Size " << sizeof(value) << " bytes" << endl;
+        cout << "Size " << sizeof(value2) << " bytes" << endl;
+    }
+protected:
+    T value;
+    T2 value2;
+};
+
+template<typename T, typename T2>
+class TypeInfo : public TeplateClass<T, T2> {
+public:
+    TypeInfo(T val, T val2) : TeplateClass<T, T2>(val, val2) {};
+    void TypeName() {
+        cout << "Name T: " << typeid(this->value).name() << endl;
+        cout << "Name T2: " << typeid(this->value2).name()<< endl;
+    }
+};
+
+int main() { 
+    TeplateClass<int, double> a(5, 2.234234);
+    a.DataTypeSize();
+    TypeInfo<int, double> b(5, 2.234234);
+    b.TypeName();
+    return 0; 
+}
+```
+#128
+```
+// специализация шаблона
+template<typename T>
+class SClass {
+public:
+    T value;
+    SClass(T val) { value = val; }
+    void print() { cout << value << endl; }
+};
+
+template<>
+class SClass<char> {
+public:
+    void print(char value) { cout << value << endl; }
+};
+
+
+int main() { 
+    SClass<int> a(4);
+    SClass<char> b;
+    b.print('a');
+    return 0; 
+}
+```
+---
+# ааа
+---
+#129
+```
+// Структурв тоже самое что и классы, только в структуре все поля по умолчанию public, в классе private (по умолчанию)
+// Также при наследовании, у struct - public, у класса private (по умолчанию)
+```
+#130
+```
+// Умные указатели
+
+```
+#
+```
+```
+#
+```
 ```
