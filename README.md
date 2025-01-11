@@ -876,11 +876,35 @@ int main() {
 #130
 ```
 // Умные указатели
+template<typename T>
+class SmartPointer {
+public:
+    SmartPointer(T* p) {
+        this->ptr = p;
+    }
+    ~SmartPointer() {
+        delete ptr;
+    }
+    T& operator * () {
+        return *ptr;
+    }
+private:
+    T* ptr;
+};
 
+int main() { 
+    int a = 5;
+    SmartPointer<int> ptr = &a;
+    SmartPointer<int> ptr2 = new int(a);
+    cout << *ptr << endl;
+    cout << *ptr2 << endl;
+    return 0; 
+}
 ```
-#
+#131
 ```
+---
 ```
-#
+#132
 ```
 ```
