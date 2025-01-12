@@ -912,7 +912,41 @@ int main() {
 ---
 # STL
 ---
-#1 vector
+#1 vector / динамический массив
 ```
-//
+    vector<int> myVector;
+    for (int i = 0; i < 10; i++) { myVector.push_back(1); }
+    for (int i = 0; i < myVector.size(); i++) { cout << myVector[i] << " "; }
+    cout << "\n[] " << myVector[20] << endl; // непредсказуемое поведение (может выдать ошибку или любое другое значение)
+    // cout << "()" << myVector.at(20) << endl; // исключение out_of_range, но медленнее
+    cout << myVector.size() << endl; // 9
+    myVector.reserve(30); // резервирует ячейки для 30 элементов
+    cout << myVector.capacity() << endl; // 30
+    myVector.clear(); // очищает массив
+    cout << myVector.size() << endl; // 0
+    cout << myVector.empty() << endl; // true
+    myVector.resize(5, 1); // 5 - кол-во, 1 - значение
+    for (int i = 0; i < myVector.size(); i++) { cout << myVector[i] << " "; } // 1 1 1 1 1
+```
+#2 Итераторы
+```
+vector<int> v = {1, 2, 3, 4, 5};
+    vector<int>::iterator it; // это итератор для вектора v
+    it = v.begin();  // инициализация итератора
+    cout << *it << endl;
+    for (vector<int>::iterator i = v.begin(); i != v.end(); i++) { // итерация по вектору путем сдвига указателя  
+        cout << *i << endl; // v.end() указывает на элемент после последнего элемента в векторе
+    }
+    for (vector<int>::const_iterator i = v.cbegin(); i != v.cend(); i++) {
+        // *i = 5; // не сработает, поскольку const_iterator не позволяет изменять элементы    
+    }
+    for (vector<int>::reverse_iterator i = v.rbegin(); i != v.rend(); i++) {
+         cout << *i << endl; // v.rend() указывает на элемент перед первым элементом в векторе
+    }
+    advance(it, 3); // передвигает итератор на 3 позиции вправо == it = v.begin() + 3
+    cout << *it << endl; // 4
+    v.insert(it, 777); // вставляет 777 перед итератором
+    v.advance(it, 5); // передвигает итератор на 5 позиций вправо 
+    v.erase(it); // удаляет элемент, на который указывает итератор
+    v.erase(it, it + 3); // удаляет 3 элемента, начиная с элемента, на который указывает итер
 ```
