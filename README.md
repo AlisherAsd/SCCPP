@@ -930,7 +930,7 @@ int main() {
 ```
 #2 Итераторы
 ```
-vector<int> v = {1, 2, 3, 4, 5};
+    vector<int> v = {1, 2, 3, 4, 5};
     vector<int>::iterator it; // это итератор для вектора v
     it = v.begin();  // инициализация итератора
     cout << *it << endl;
@@ -952,5 +952,76 @@ vector<int> v = {1, 2, 3, 4, 5};
 ```
 #3 list / двусвязный список
 ```
+    list<int> myList = {2, 2, 2};
+    myList.push_back(1);
+    myList.push_front(1);
+    list<int>::iterator it = myList.begin();
+    myList.sort();
 
+    for (it; it != myList.end(); it++) {
+        cout << *it << endl;
+    }
+
+    myList.assign(10, 0); // [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  
+```
+#4 forward list / односвязный список
+```
+    forward_list<int> fl {5, 4, 3, 2, 1};
+    fl.push_front(1);
+    // fl.push_back(1); Нету тк медленно
+    for (auto el : fl) cout << el << " ";
+    forward_list<int>::iterator it = fl.begin();
+    forward_list<int>::iterator it = fl.before_begin(); // перерд первым элементом
+    cout << *(it++) << endl; // 4
+    // cout << *(it--) << endl; // err 
+    fl.insert_after(it, 0);
+
+```
+#5 deque / двусторонняя очередь
+```
+// В памяти хранятся динамисеские массивы связанные по принципц двусвязного списка
+// [][][][] -> <- [][][][] -> <- [][][][]
+
+    deque<int> deq {1, 1, 1, 1};
+    deq.push_back(1); // нету в векторе
+    cout << deq[0] << deq.at(0) << endl; 
+```
+#6 set / multiset
+```
+        [5]
+      /    \
+    [1]      [12]
+
+    // хранит только уникальные числа в виде бинарного дерева, тоесть изначально отсортирован
+    // изменить элемент нельзя, но можно удалить и вставить
+    set<int> MySet {1, 2, 5, 2};
+    for (auto el : MySet) cout << el << " ";
+    auto it = MySet.find(1); // возвращает итератор, если такого числа нет возвращается итератор на конец
+    MySet.erase(1); // если его нету , то возвращает 0
+
+    multiset<int> MyMultiset {1, 4, 3, 1, 6}; // может хранить одинаковые элементы
+    for (auto el : MyMultiset) cout << el << " ";
+    auto it = MySet.lower_bound(1); // возвращает итератор на первый найденный элемент
+    auto it2 = MySet.upper_bound(1); // возвращает итератор на следующий элемент после найденного
+    auto it3 = MySet.equal_range(1); // возвращает итератор на найденный элемент и на след  
+
+```
+#7
+```
+    // хранит пару ключ-значение в виде бинарного дерева, без повторяющегося ключа
+    map<int, string> MyMap;
+    MyMap.insert(make_pair(1, "Value one"));
+    MyMap.insert(pair<int, string>(2, "Value two"));
+    MyMap.emplace(3, "Value three");
+    auto it = MyMap.begin();
+    cout << it->first << endl; // 1
+    cout << it->second << endl; // Value one
+    cout << MyMap[3] << endl; // Value three
+    MyMap[4] = "Four"; // если ключа нет, то добавляет, если есть то заменяет
+    MyMap.at(5) = "Five"; // не добавиться, а вылетит out of range
+    MyMap.erase(1); // удаляет элемент с ключем 1
+
+    multimap<int, string> MyMuiltimap; // может хранить одинаковые ключи
+    // MyMuiltimap[] MyMuiltimap.at() нету
 ```
