@@ -1007,7 +1007,7 @@ int main() {
     auto it3 = MySet.equal_range(1); // возвращает итератор на найденный элемент и на след  
 
 ```
-#7
+#7 map / muitimap
 ```
     // хранит пару ключ-значение в виде бинарного дерева, без повторяющегося ключа
     map<int, string> MyMap;
@@ -1024,4 +1024,27 @@ int main() {
 
     multimap<int, string> MyMuiltimap; // может хранить одинаковые ключи
     // MyMuiltimap[] MyMuiltimap.at() нету
+```
+#8 stack / Адаптера контейнеров
+```
+    // можем взаимодействовать только с последним элементом
+    // последним зашел - первым вышел
+    // vector list deque
+    stack<int, vector<int>> s; // стек это обертка для обычного контейнера
+    s.push(2);
+    s.push(3);
+    cout << s.top() << endl; // 3
+    s.pop();
+    cout << s.top() << endl; // 2
+```
+#9 queue
+```
+    // первый зашел первый вышел
+    queue<int, vector<int>> q;
+    cout << q.empty() << endl; // 1
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    cout << q.front() << endl; // 1
+    cout << q.back() << endl; // 3 
 ```
