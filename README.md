@@ -1048,3 +1048,37 @@ int main() {
     cout << q.front() << endl; // 1
     cout << q.back() << endl; // 3 
 ```
+#13 
+```
+[]() {}; // лямбда выражение или анонимная ф
+vector<int> v {4, 2, 3, 1};
+sort(v.begin(), v.end(), [](int a, int b) { // испольщование лф в сортировке (предикат)
+    return a > b;
+});
+
+// Функциональные объекты
+void operator()() {
+    cout << "Hi" << endl;
+}
+MyClass m;
+m(); // Hi 
+```
+# Алгоритмы ( Не модифицирующие )
+```
+find(v.begin(), v.end(), 8); // ищет итератор на 8
+count(v.begin(), v.end(), 8); // считает 8
+find_if(v.begin(), v.end(), 8); // ищет итератор на 8
+count_if(v.begin(), v.end(), 8); // считает 8
+```
+# Алгоритмы ( Модифицирующие )
+```
+reverse(s.begin(), s.end());
+
+vector<int> v = {5, 5, 3, 2, 2, 5, 9, 1};
+auto iter = std::unique(v.begin(), v.end());
+// В векторе окажется 5, 3, 2, 5, 9, 1, 9, 1
+//                                      ^ iter будет указывать сюда
+ v.erase(iter, v.end());  // удаляем хвост из ненужных элементов
+
+fill(v.begin(), v.end(), 8); // заменяет выбранный диапазон на 8
+```
